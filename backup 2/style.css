@@ -1,0 +1,752 @@
+/* --- Global & Reset --- */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: "Tahoma", "Verdana", sans-serif;
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+    background-color: #000;
+}
+
+/* --- Z-Index Hierarchy (Nuked & Enforced) --- */
+/* 
+   0: Desktop Background
+   10: Desktop Icons
+   100+: Windows
+   2000: Taskbar
+   3000: Start Menu
+   9999: Login Screen
+   10000: Dialogs
+*/
+
+/* --- Phase 1: Login Screen --- */
+#login-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #003399; /* Classic XP Login Blue */
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-window {
+    width: 400px;
+    background: linear-gradient(to bottom, #5a7edc 0%, #4262bc 100%);
+    border: 2px solid #fff;
+    border-radius: 5px;
+    padding: 2px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+}
+
+.login-content {
+    background: #fff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-avatar {
+    width: 64px;
+    height: 64px;
+    background-color: orange;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/1024px-User_font_awesome.svg.png');
+    background-size: cover;
+}
+
+.login-form h3 {
+    margin: 0 0 10px 0;
+    color: #444;
+}
+
+/* --- Phase 2: Desktop --- */
+#desktop {
+    display: none; /* Hidden until login */
+    width: 100%;
+    height: 100%;
+    background-image: url('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 0;
+}
+
+/* Icons */
+.desktop-icon {
+    width: 80px;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    margin: 20px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    z-index: 10;
+    pointer-events: auto; /* Force clickable */
+}
+
+/* Specific Icon Positioning */
+#icon-welcome {
+    top: auto;
+    left: auto;
+    bottom: 50px;
+    right: 20px;
+}
+
+.desktop-icon img {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 5px;
+    pointer-events: none; /* Let clicks pass to container */
+}
+
+.desktop-icon span {
+    background-color: transparent;
+    padding: 2px;
+    pointer-events: none; /* Let clicks pass to container */
+}
+
+.desktop-icon:hover span {
+    background-color: #0055ea;
+}
+
+/* Disabled Icon State */
+.desktop-icon.disabled {
+    opacity: 0.6;
+    filter: grayscale(100%);
+    pointer-events: none;
+}
+
+/* Positioning Icons */
+#icon-computer { top: 10px; left: 10px; }
+#icon-fixme { top: 120px; left: 10px; }
+#icon-gift { top: 230px; left: 10px; }
+
+/* --- Windows --- */
+.window-container {
+    position: absolute;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+}
+
+.window-visible {
+    display: block !important;
+}
+
+.active-window {
+    z-index: 5000 !important; /* Fixed: Highest priority */
+}
+
+.window-body {
+    background-color: #ece9d8;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* Notepad Specific */
+textarea.code-editor {
+    width: 100%;
+    height: 200px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: scroll;
+    resize: none;
+}
+
+/* File Explorer Specific */
+.explorer-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.address-bar-wrapper {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.address-bar-wrapper input {
+    flex-grow: 1;
+    padding: 2px 5px;
+}
+
+.explorer-layout {
+    display: flex;
+    height: 300px;
+    border: 1px solid #888;
+    background-color: white;
+}
+
+.explorer-sidebar {
+    width: 150px;
+    background: linear-gradient(to bottom, #7ba2e7 0%, #6375d6 100%);
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.sidebar-item {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.sidebar-item:hover {
+    text-decoration: underline;
+}
+
+.explorer-main {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 15px;
+}
+
+.file-item {
+    width: 60px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 11px;
+    color: black;
+}
+
+.file-item:hover {
+    background-color: #e8f4ff;
+    border: 1px solid #cce6ff;
+}
+
+.file-item img {
+    width: 32px;
+    height: 32px;
+    display: block;
+    margin: 0 auto 5px auto;
+}
+
+/* --- Start Menu --- */
+#start-menu {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 380px;
+    height: 480px;
+    background-color: #fff;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    box-shadow: 2px -2px 10px rgba(0,0,0,0.5);
+    z-index: 3000; /* Nuked: Above Taskbar */
+    display: none;
+    flex-direction: column;
+    border: 1px solid #003399;
+}
+
+.start-header {
+    height: 60px;
+    background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 100%);
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    gap: 10px;
+}
+
+/* --- Start Menu (Authentic Luna) --- */
+#start-menu {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 380px;
+    height: 480px;
+    background-color: white;
+    border: 1px solid #004E98;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    z-index: 3000;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    font-family: "Tahoma", sans-serif;
+}
+
+#start-menu * {
+    box-sizing: border-box;
+}
+
+
+#start-header {
+    height: 45px;
+    background: linear-gradient(to bottom, #245EDC 0%, #3C81F0 100%);
+    border-top: 2px solid #E45C05; /* Orange top border */
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border: 2px solid white;
+    border-radius: 3px;
+}
+
+.username {
+    font-size: 14px;
+}
+
+#start-body {
+    flex-grow: 1;
+    display: flex;
+    border-top: 1px solid #004E98;
+    height: 85.4%;
+}
+
+.start-col {
+    width: 50%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.left-col {
+    background-color: white;
+}
+
+.right-col {
+    background-color: #D3E5FA;
+    border-left: 1px solid #95BDE7;
+    color: #00138C;
+}
+
+.start-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 6px;
+    cursor: default;
+    gap: 8px;
+    height: 32px; /* Consistent height */
+}
+
+.start-item:hover {
+    background-color: #316AC5;
+    color: white;
+}
+
+.start-item img {
+    width: 24px;
+    height: 24px;
+}
+
+.start-item span {
+    font-size: 11px;
+}
+
+/* Pinned Items (Internet/Email) */
+.start-item.pinned {
+    height: 40px;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.item-name {
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.item-desc {
+    font-size: 10px;
+    color: #888;
+}
+
+.start-item:hover .item-desc {
+    color: #ddd;
+}
+
+/* Separators */
+.menu-separator {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #d4d0c8, transparent);
+    margin: 5px 0;
+}
+
+.right-col .menu-separator {
+    background: #95BDE7;
+}
+
+/* Right Column Specifics */
+.right-col .start-item {
+    height: 28px;
+}
+
+.right-col .start-item img {
+    width: 20px;
+    height: 20px;
+}
+
+.bold-text span {
+    font-weight: bold;
+}
+
+/* All Programs */
+.spacer {
+    flex-grow: 1;
+}
+
+.all-programs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    font-weight: bold;
+    font-size: 11px;
+    cursor: default;
+    gap: 5px;
+}
+
+.all-programs:hover {
+    background-color: #316AC5;
+    color: white;
+}
+
+.arrow-green {
+    color: #008000; /* Green arrow */
+    font-size: 10px;
+}
+
+.all-programs:hover .arrow-green {
+    color: white;
+}
+
+/* Footer */
+#start-footer {
+    height: 30px;
+    background: linear-gradient(to bottom, #3C81F0 0%, #245EDC 100%);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 10px;
+    gap: 10px;
+    border-top: 1px solid #004E98;
+}
+
+.footer-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    font-size: 11px;
+    cursor: default;
+    padding: 3px 6px;
+}
+
+.footer-button:hover {
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 2px;
+}
+
+.footer-button img {
+    width: 16px;
+    height: 16px;
+}
+
+/* --- Taskbar --- */
+#taskbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #333 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 2000; /* Nuked: Above Windows */
+    border-top: 1px solid #0055ea;
+}
+
+.start-button {
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Windows_XP_Start_Icon.png/64px-Windows_XP_Start_Icon.png') no-repeat 5px center;
+    background-color: #3c9e3c;
+    background-size: 20px;
+    color: white;
+    font-weight: bold;
+    font-style: italic;
+    padding: 2px 15px 0px 20px;
+    border-radius: 0 10px 10px 0;
+    box-shadow: inset 0px 5px 10px rgba(255,255,255,0.3);
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+.start-button:hover {
+    background-color: #48c048;
+}
+
+.start-button.active {
+    background-color: #2b7a2b;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.start-logo img{
+    width: 21px;
+    height: 21px;
+}
+.clock {
+    background-color: #0b76ba;
+    color: white;
+    padding: 0 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    border-left: 1px solid #104a7b;
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,0.2);
+}
+
+/* Helper for close button alignment in XP.css */
+.title-bar-controls button[aria-label="Close"] {
+    cursor: pointer;
+}
+
+/* --- Authentic Notepad & WordPad --- */
+.menubar {
+    background-color: #ece9d8;
+    padding: 2px 5px;
+    border-bottom: 1px solid #d4d0c8;
+    display: flex;
+    gap: 10px;
+    font-size: 11px;
+    color: black;
+}
+
+.menubar-item {
+    padding: 2px 5px;
+    cursor: default;
+}
+
+.menubar-item:hover {
+    background-color: #316ac5;
+    color: white;
+}
+
+.notepad-content {
+    flex-grow: 1;
+    border: none;
+    resize: none;
+    font-family: 'Lucida Console', monospace;
+    font-size: 13px;
+    padding: 5px;
+    outline: none;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.wordpad-toolbar {
+    background-color: #ece9d8;
+    padding: 5px;
+    border-bottom: 1px solid #d4d0c8;
+    display: flex;
+    gap: 5px;
+}
+
+.toolbar-btn {
+    width: 22px;
+    height: 22px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-family: serif;
+}
+
+.toolbar-btn:hover {
+    border: 1px solid #316ac5;
+    background-color: #c1d2ee;
+}
+
+.wordpad-content {
+    flex-grow: 1;
+    background-color: white;
+    padding: 20px;
+    font-family: 'Times New Roman', serif;
+    font-size: 14px;
+    overflow: auto;
+    outline: none;
+}
+
+/* --- WinZip Self-Extractor --- */
+.winzip-body {
+    background-color: #ece9d8;
+    padding: 15px;
+    font-size: 11px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.winzip-icon {
+    float: left;
+    margin-right: 15px;
+    width: 32px;
+    height: 32px;
+}
+
+.winzip-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.winzip-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+
+/* --- XP Dialog Box --- */
+.xp-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    background-color: #ece9d8;
+    border: 1px solid #0055ea;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+    z-index: 10000; /* Nuked: Highest Priority */
+    font-family: 'Tahoma', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.xp-dialog-body {
+    padding: 15px;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.xp-dialog-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.xp-dialog-message {
+    font-size: 12px;
+    color: black;
+    margin-top: 5px;
+}
+
+.xp-dialog-footer {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.xp-dialog-btn {
+    min-width: 75px;
+    padding: 3px 10px;
+    font-family: inherit;
+    font-size: 11px;
+}
+
+/* --- Taskbar Items --- */
+#taskbar-items {
+    display: flex;
+    flex-grow: 1; /* Takes up remaining space */
+    gap: 2px;
+    padding: 2px;
+    overflow: hidden;
+}
+
+.taskbar-item {
+    max-width: 150px;
+    flex: 0 1 150px;
+    display: flex;
+    align-items: center;
+    background: #3c81f0;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 2px;
+    cursor: default;
+    box-shadow: inset 1px 1px 0px rgba(255,255,255,0.3);
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.taskbar-item:hover {
+    background: #5794f5;
+}
+
+.taskbar-item.active {
+    background: #1e52b7; /* Darker blue for pressed state */
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.taskbar-item img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.taskbar-divider {
+    width: 2px;
+    background: rgba(0, 0, 0, 0.2);
+    margin: 2px 5px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+

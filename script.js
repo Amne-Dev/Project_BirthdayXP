@@ -920,6 +920,11 @@ $(document).ready(function() {
             registerWindow(id, "My Computer", "computer");
         } else if (id === "window-media") {
             registerWindow(id, "Windows Media Player", "computer"); // Using computer icon as placeholder
+            // Start video
+            const iframe = $("#window-media iframe");
+            if (iframe.attr("data-src") && !iframe.attr("src")) {
+                 iframe.attr("src", iframe.attr("data-src"));
+            }
         }
     };
 
@@ -930,9 +935,7 @@ $(document).ready(function() {
 
         if(id === 'window-media') {
             const iframe = $("#window-media iframe");
-            const src = iframe.attr("src");
-            iframe.attr("src", "");
-            iframe.attr("src", src);
+            iframe.attr("src", ""); // Stop video
         }
     };
 

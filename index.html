@@ -13,6 +13,14 @@
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("fOq1vVOR6eZC7oSPW");
+        })();
+    </script>
 </head>
 <body>
 
@@ -92,13 +100,18 @@
         </div>
 
         <div class="desktop-icon disabled" id="icon-computer" data-type="computer">
-            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png" alt="My Computer">
+            <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/16_My_Computer/123_size48.png" alt="My Computer">
             <span>My Computer</span>
         </div>
 
-        <div class="desktop-icon" id="icon-welcome" data-type="welcome">
-            <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png" alt="Welcome">
-            <span>Welcome.txt</span>
+        <div class="desktop-icon" id="icon-instructions" data-type="instructions">
+            <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/refs/heads/main/Icons/156_Icon_155/541_size48.png" alt="Instructions">
+            <span>Instructions.txt</span>
+        </div>
+
+        <div class="desktop-icon" id="icon-sidequests" data-type="sidequests">
+            <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/156_Icon_155/541_size48.png" alt="Side Quests">
+            <span>Side_Quests.txt</span>
         </div>
 
         <div class="desktop-icon" id="icon-fixme" data-type="fixme">
@@ -107,7 +120,7 @@
         </div>
 
         <div class="desktop-icon" id="icon-gift" data-type="gift">
-            <img src="https://win98icons.alexmeub.com/icons/png/rename-0.png" alt="Gift">
+            <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/54_Icon_53/376_size48.png" alt="Gift">
             <span>Gift.zip</span>
         </div>
 
@@ -126,16 +139,16 @@
                 <div class="explorer-header">
                     <div class="menu-bar">
                         <span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span>
-                        <div class="windows-logo-right"><img src="https://win98icons.alexmeub.com/icons/png/windows_update_small-0.png" height="18"></div>
+                        <div class="windows-logo-right"><img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/57_Windows_Update/222_size48.png" height="18"></div>
                     </div>
 
                     <div class="tool-bar">
-                        <div class="tool-btn text-btn" id="explorer-back"><img class="green-nav" src="https://raw.githubusercontent.com/ShizukuIchi/winXP/master/src/assets/windowsIcons/back.png"> Back</div>
-                        <div class="tool-btn"><img class="green-nav" src="https://raw.githubusercontent.com/ShizukuIchi/winXP/master/src/assets/windowsIcons/forward.png"></div>
-                        <div class="tool-btn text-btn"><img src="https://win98icons.alexmeub.com/icons/png/directory_open-4.png"> Up</div>
+                        <div class="tool-btn text-btn" id="explorer-back" onclick="navigateBack()"><img class="green-nav" src="https://raw.githubusercontent.com/ShizukuIchi/winXP/master/src/assets/windowsIcons/back.png"> Back</div>
+                        <div class="tool-btn" id="explorer-forward" onclick="navigateForward()"><img class="green-nav" src="https://raw.githubusercontent.com/ShizukuIchi/winXP/master/src/assets/windowsIcons/forward.png"></div>
+                        <div class="tool-btn text-btn" onclick="navigateUp()"><img src="https://raw.githubusercontent.com/ShizukuIchi/winXP/master/src/assets/windowsIcons/forward.png" style="transform: rotate(-90deg);"> Up</div>
                         <div class="separator"></div>
-                        <div class="tool-btn text-btn"><img src="https://win98icons.alexmeub.com/icons/png/search_file-2.png"> Search</div>
-                        <div class="tool-btn text-btn"><img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png"> Folders</div>
+                        <div class="tool-btn text-btn"><img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/23_Search/194_size48.png"> Search</div>
+                        <div class="tool-btn text-btn"><img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/4_Closed_Folder/23_size48.png"> Folders</div>
                         <div class="separator"></div>
                         <div class="tool-btn"><img src="https://win98icons.alexmeub.com/icons/png/list-0.png"></div>
                     </div>
@@ -143,9 +156,9 @@
                     <div class="address-bar">
                         <span class="label">Address</span>
                         <div class="input-wrapper">
-                            <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png" class="addr-icon">
-                            <input type="text" id="explorer-address" value="C:\Documents and Settings\Administrator\My Documents" readonly>
-                            <div class="go-btn"><img src="https://raw.githubusercontent.com/ShizukuIchi/winXP/master/src/assets/windowsIcons/go.png" alt="Go"> Go</div>
+                            <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/4_Closed_Folder/23_size48.png" class="addr-icon">
+                            <input type="text" id="explorer-address" value="C:\Documents and Settings\Administrator\My Documents" onkeypress="handleAddressKeypress(event)">
+                            <div class="go-btn" onclick="handleGoClick()"><img src="https://raw.githubusercontent.com/ShizukuIchi/winXP/master/src/assets/windowsIcons/go.png" alt="Go"> Go</div>
                         </div>
                     </div>
                 </div>
@@ -158,7 +171,7 @@
                                 <span class="toggle">^</span>
                             </div>
                             <div class="task-content">
-                                <div class="task-item"><img src="https://win98icons.alexmeub.com/icons/png/folder_new-1.png"> Make a new folder</div>
+                                <div class="task-item"><img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/4_Closed_Folder/23_size48.png"> Make a new folder</div>
                                 <div class="task-item"><img src="https://win98icons.alexmeub.com/icons/png/world-3.png"> Publish this folder to the Web</div>
                                 <div class="task-item"><img src="https://win98icons.alexmeub.com/icons/png/network_drive_offline-3.png"> Share this folder</div>
                             </div>
@@ -170,9 +183,9 @@
                                 <span class="toggle">^</span>
                             </div>
                             <div class="task-content">
-                                <div class="task-item" onclick="navigateExplorer('root')"><img src="https://win98icons.alexmeub.com/icons/png/directory_open-4.png"> My Documents</div>
+                                <div class="task-item" onclick="navigateExplorer('root')"><img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/235_Icon_234/796_size48.png"> My Documents</div>
                                 <div class="task-item"><img src="https://win98icons.alexmeub.com/icons/png/network_cool-2.png"> My Network Places</div>
-                                <div class="task-item" onclick="navigateExplorer('root')"><img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png"> My Computer</div>
+                                <div class="task-item" onclick="navigateExplorer('root')"><img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/16_My_Computer/123_size48.png"> My Computer</div>
                             </div>
                         </div>
                         
@@ -199,19 +212,37 @@
         <!-- Window: Password Prompt (Step 4) (Removed - Generated by JS) -->
 
         <!-- Window: Media Player (Reward) -->
-        <div class="window-container window" id="window-media" style="top: 50px; left: 100px; width: 600px;">
+        <div class="window-container window" id="window-media" style="top: 5vh; left: 5vw; width: 85vw; height: 95vh;">
             <div class="title-bar">
                 <div class="title-bar-text">Windows Media Player - Birthday Edition</div>
                 <div class="title-bar-controls">
                     <button aria-label="Close" onclick="closeWindow('window-media')"></button>
                 </div>
             </div>
-            <div class="window-body" style="background-color: black; color: white; text-align: center;">
-                <h2 style="color: #00ff00;">HAPPY BIRTHDAY!</h2>
-                <div style="margin: 20px 0;">
-                    <iframe width="500" height="300" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="window-body" style="background-color: black; color: white; overflow: hidden; height: calc(100% - 30px); display: flex; flex-direction: column;">
+                <h2 style="color: #00ff00; margin: 15px 0; text-align: center; flex: 0 0 auto;">HAPPY BIRTHDAY!</h2>
+                
+                <div style="display: flex; flex-direction: row; gap: 30px; padding: 0 20px; flex: 1; overflow: hidden; box-sizing: border-box;">
+                    <!-- Video Side -->
+                    <div style="flex: 0 0 500px; display: flex; align-items: center; justify-content: center;">
+                        <iframe width="100%" height="300" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    
+                    <!-- Message Side -->
+                    <div class="birthday-message" style="flex: 1; font-family: 'Verdana', sans-serif; line-height: 1.6; font-size: 16px; text-shadow: 1px 1px 2px black; text-align: left; overflow-y: auto; padding-right: 15px;">
+                        <p style="margin-bottom: 15px;">I want to take this moment to wish you a happy 18th birthday.</p>
+                        <p style="margin-bottom: 15px;">Here’s to a year filled with growth, quiet victories, sincere laughter, and dreams slowly finding their way to reality.</p>
+                        <p style="margin-bottom: 15px;">I don't get many chances to say this but I love being present around you. Every time we share a moment I feel a certain warmth, no matter how small or ordinary it seems. Your presence has a way of making things lighter, your cheerful personality and how you manage to make stressful and awkward situations fun and entertaining had always fascinated me.</p>
+                        <p style="margin-bottom: 15px;">May you always find reasons to smile, strength when you need it, and comfort in knowing you are truly appreciated.</p>
+                        <p style="margin-bottom: 25px; color: #87CEEB;">With love, warm thoughts, and wishes wrapped in kindness, sent just for you today.</p>
+                        
+                        <div style="direction: rtl; font-family: 'Traditional Arabic', 'Arial', sans-serif; font-size: 18px; color: #FFD700; margin-top: 20px;">
+                            <p style="margin-bottom: 10px;">اللهم مثلما أنرت الكون بنور الشمس في هذا اليوم، أنر قلبها بنور حبك ضياءً لا ينطفئ، وارزقها الرزق الدائم الذي لا ينقطع</p>
+                            <p style="margin-bottom: 10px;">وصحة تستخدمها في طاعتك، وأن تحبها وتحبب فيها خلقك وعبادك، وأن تُسكنها الجنّة مع الرسول</p>
+                            <p>وأن تجعل أيامها فاتحة لبهجة لا تزول.</p>
+                        </div>
+                    </div>
                 </div>
-                <p>Access Granted.</p>
             </div>
         </div>
 
@@ -224,14 +255,14 @@
 
             <div id="start-body">
                 <div class="start-col left-col">
-                    <div class="start-item pinned" onclick="showXPDialog('Internet Explorer', 'Internet Explorer is currently offline.', 'error')">
+                    <div class="start-item pinned" onclick="openWindow('ie')">
                         <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/refs/heads/main/Icons/512_Icon_511/1487_size48.png">
                         <div class="item-info">
                             <span class="item-name">Internet</span>
                             <span class="item-desc">Internet Explorer</span>
                         </div>
                     </div>
-                    <div class="start-item pinned" onclick="showXPDialog('Outlook Express', 'Outlook Express is not configured.', 'info')">
+                    <div class="start-item pinned" onclick="openWindow('email')">
                         <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-4.png">
                         <div class="item-info">
                             <span class="item-name">E-mail</span>
@@ -241,20 +272,81 @@
                     
                     <div class="menu-separator"></div>
                     
-                    <div class="start-item" onclick="showXPDialog('Paint', 'Paint is not installed.', 'error')"><img src="assets/paint-xp.png"><span>Paint</span></div>
-                    <div class="start-item" onclick="openWindow('window-notepad')"><img src="https://win98icons.alexmeub.com/icons/png/notepad-4.png"><span>Notepad</span></div>
+                    <div class="start-item" onclick="openWindow('paint')"><img src="assets/paint.webp"><span>Paint</span></div>
+                    <div class="start-item" onclick="openWindow('notepad')"><img src="assets/Notepad.webp"><span>Notepad</span></div>
                     
                     <div class="spacer"></div>
                     
-                    <div class="all-programs">
+                    <div class="all-programs" id="all-programs-btn">
                         <span>All Programs</span>
                         <div class="arrow-green">▶</div>
+                    </div>
+                    
+                    <!-- All Programs Menu -->
+                    <div id="all-programs-menu" class="program-menu">
+                        <div class="program-item header-item">
+                             <img src="https://win98icons.alexmeub.com/icons/png/windows_update_small-2.png"> 
+                             <span>Windows Update</span>
+                        </div>
+                        <div class="menu-separator"></div>
+                        <div class="program-item has-submenu">
+                            <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/4_Closed_Folder/23_size48.png"> 
+                            <span>Accessories</span>
+                            <div class="program-submenu">
+                                <div class="program-item" onclick="openWindow('calculator')">
+                                    <img src="assets/Calculator.svg"> <span>Calculator</span>
+                                </div>
+                                  <div class="program-item" onclick="openWindow('notepad')">
+                                      <img src="assets/Notepad.webp"> <span>Notepad</span>
+                                  </div>
+                                  <div class="program-item" onclick="openWindow('paint')">
+                                    <img src="assets/paint.webp"> <span>Paint</span>
+                                </div>
+                                <div class="program-item" onclick="openWindow('wordpad')">
+                                    <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/155_Icon_154/533_size48.png"> <span>WordPad</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="program-item has-submenu">
+                            <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/4_Closed_Folder/23_size48.png"> 
+                            <span>Games</span>
+                             <div class="program-submenu">
+                                  <div class="program-item" onclick="openWindow('solitaire')">
+                                      <img src="https://win98icons.alexmeub.com/icons/png/solitaire-0.png"> <span>Solitaire</span>
+                                  </div>
+                                  <div class="program-item" onclick="openWindow('minesweeper')">       
+                                    <img src="https://win98icons.alexmeub.com/icons/png/minesweeper-0.png"> <span>Minesweeper</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="program-item has-submenu">
+                            <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/4_Closed_Folder/23_size48.png"> 
+                            <span>Startup</span>
+                            <div class="program-submenu">
+                                <div class="program-item">
+                                    <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/1_Unknown_File_(Standard)/11_size48.png"> <span>(Empty)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="program-item" onclick="openWindow('ie')">
+                            <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/refs/heads/main/Icons/512_Icon_511/1487_size48.png"> 
+                            <span>Internet Explorer</span>
+                        </div>
+                        <div class="program-item" onclick="showXPDialog('Outlook Express', 'Not configured.', 'info')">
+                            <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-4.png"> 
+                            <span>Outlook Express</span>
+                        </div>
+                        <div class="program-item" onclick="showXPDialog('Remote Assistance', 'Connection failed.', 'error')">
+                            <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/main/Icons/22_Help_Book/182_size48.png"> 
+                            <span>Remote Assistance</span>
+                        </div>
+
                     </div>
                 </div>
 
                 <div class="start-col right-col">
-                    <div class="start-item bold-text" onclick="navigateExplorer('C:/Users/Friend/Documents')"><img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/refs/heads/main/Icons/235_Icon_234/796_size48.png"><span>My Documents</span></div>
-                    <div class="start-item bold-text" onclick="navigateExplorer('root')"><img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/refs/heads/main/Icons/16_My_Computer/123_size48.png"><span>My Computer</span></div>
+                    <div class="start-item bold-text" onclick="openWindow('window-explorer'); navigateExplorer('C:/Users/Amine/Documents')"><img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/refs/heads/main/Icons/235_Icon_234/796_size48.png"><span>My Documents</span></div>
+                    <div class="start-item bold-text" onclick="openWindow('window-explorer'); navigateExplorer('root')"><img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/refs/heads/main/Icons/16_My_Computer/123_size48.png"><span>My Computer</span></div>
                     <div class="menu-separator"></div>
                     <div class="start-item" onclick="showXPDialog('Control Panel', 'Control Panel access is restricted.', 'error')"><img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/refs/heads/main/Icons/165_Icon_164/572_size48.png"><span>Control Panel</span></div>
                     <div class="start-item" onclick="showXPDialog('Help', 'Help is not available.', 'info')"><img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/refs/heads/main/Icons/22_Help_Book/182_size48.png"><span>Help and Support</span></div>
@@ -268,9 +360,24 @@
                     <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/refs/heads/main/Icons/325_Icon_324/1393_size48.png">
                     <span>Log Off</span>
                 </div>
-                <div class="footer-button" onclick="window.close()">
+                <div class="footer-button" onclick="shutdownComputer()">
                     <img src="https://raw.githubusercontent.com/Amne-Dev/WinXP-CDN/refs/heads/main/Icons/28_Shutdown/241_size48.png">
                     <span>Turn Off Computer</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Volume Control Popup -->
+        <div id="volume-popup" class="xp-popup" style="display: none;">
+            <div class="volume-header">Volume</div>
+            <div class="volume-body">
+                <div class="slider-track">
+                    <div class="slider-fill" style="height: 35%;"></div>
+                    <div class="slider-thumb" style="bottom: 35%;"></div>
+                </div>
+                <div class="mute-box">
+                    <input type="checkbox" id="mute-check">
+                    <label for="mute-check">Mute</label>
                 </div>
             </div>
         </div>
@@ -281,8 +388,25 @@
             <div class="taskbar-divider"></div>
             <div id="taskbar-items"></div>
             <div class="taskbar-divider"></div>
-            <div class="clock" id="clock">12:00 PM</div>
-        </div>
+            
+            <!-- Notification Area (System Tray) -->
+            <div id="notification-area">
+                <div id="system-tray">
+                    <div class="tray-expand-button tray-arrow-collapsed" onclick="toggleTray()" title="Show hidden icons"></div>
+
+                    <div id="tray-icons" class="tray-icons-hidden">
+                        <!-- Collapsible Icons -->
+                        <img class="tray-icon-img tray-collapsible" src="https://win98icons.alexmeub.com/icons/png/key_win-1.png" title="Security Center" onclick="showNotification('Your computer might be at risk', 'Antivirus software might not be installed.', 'security')">
+                        <img class="tray-icon-img tray-collapsible" src="https://win98icons.alexmeub.com/icons/png/network_cool_two_pcs-0.png" title="Local Area Connection" onclick="showNotification('Local Area Connection', 'Speed: 100.0 Mbps', 'network')">
+                        <img class="tray-icon-img tray-collapsible" src="https://win98icons.alexmeub.com/icons/png/unplug_storage-1.png" title="Safely Remove Hardware" onclick="showNotification('Safely Remove Hardware', 'Hardware can be removed safely.', 'usb')">
+                        
+                        <!-- Always Visible Icons -->
+                        <img class="tray-icon-img" src="https://win98icons.alexmeub.com/icons/png/loudspeaker_rays-0.png" title="Volume" onclick="toggleVolumeControl()">
+                    </div>
+                </div>
+
+                <div class="clock" id="clock">12:00 PM</div>
+            </div>
 
     </div>
 

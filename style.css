@@ -223,10 +223,24 @@ body {
     display: none; /* Hidden until login */
     width: 100%;
     height: 100%;
-    background-image: url('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png');
+    /* Default Autumn Wallpaper */
+    background-image: url('https://images.unsplash.com/photo-1477414348463-c0eb7f1359b6?auto=format&fit=crop&w=1600&q=80');
     background-size: cover;
     background-position: center;
     position: relative;
+    z-index: 0;
+}
+
+/* Icon Grid Container (Optional for future use) */
+#desktop-icons {
+    position: absolute;
+    top: 0; left: 0; bottom: 40px; right: 0;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start; /* Columns start from left */
+    gap: 20px;
     z-index: 0;
 }
 
@@ -244,21 +258,31 @@ body {
     position: absolute;
     z-index: 10;
     pointer-events: auto; /* Force clickable */
+    border: 1px solid transparent; /* Placeholder for selection border */
+    padding: 5px;
+    border-radius: 2px;
 }
 
 /* Specific Icon Positioning */
-#icon-welcome {
+#icon-instructions {
     top: auto;
     left: auto;
     bottom: 50px;
-    right: 120px;
+    right: 20px;
+}
+
+#icon-sidequests {
+    top: auto;
+    left: auto;
+    bottom: 160px; /* Above instructions */
+    right: 20px;
 }
 
 #icon-recycle {
     top: auto;
     left: auto;
     bottom: 50px;
-    right: 20px;
+    right: 120px;
 }
 
 .desktop-icon img {
@@ -272,10 +296,30 @@ body {
     background-color: transparent;
     padding: 2px;
     pointer-events: none; /* Let clicks pass to container */
+    font-size: 11px;
+    font-family: Tahoma, sans-serif;
+    margin-top: 2px;
+    border-radius: 2px;
 }
 
 .desktop-icon:hover span {
     background-color: #0055ea;
+}
+
+/* Selected Look (XP Style) */
+.desktop-icon.selected {
+    background-color: rgba(11, 97, 255, 0.2);
+    border: 1px dotted rgba(255, 255, 255, 0.5);
+}
+
+.desktop-icon.selected img {
+    opacity: 0.7; /* XP dims icons slightly when selected */
+}
+
+.desktop-icon.selected span {
+    background-color: #0B61FF;
+    color: white;
+    text-shadow: none;
 }
 
 /* Disabled Icon State */
@@ -294,16 +338,14 @@ body {
 .window-container {
     position: absolute;
     display: none; /* Hidden by default */
-    z-index: 1000;
+    z-index: 100; /* Standard Window Z-Index */
     box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
 }
 
-.window-visible {
-    display: block !important;
-}
+
 
 .active-window {
-    z-index: 5000 !important; /* Fixed: Highest priority */
+    z-index: 500 !important; /* Fixed: Highest priority but below Taskbar/Start/Login */
 }
 
 .window-body {
@@ -312,7 +354,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 100%;
+    /* height: 100%; Removed to allow Flexbox to handle height correctly in all contexts */
+    flex: 1; /* Ensure it grows if parent is flex-col */
+    min-height: 0; /* Important for firefox/flex nesting */
     box-sizing: border-box;
 }
 
@@ -861,12 +905,12 @@ textarea.code-editor {
 .clock {
     background-color: #0b76ba;
     color: white;
-    padding: 0 15px;
+    padding: 0 10px 0 5px; /* Adjust padding for connection with tray */
     height: 100%;
     display: flex;
     align-items: center;
     font-size: 12px;
-    border-left: 1px solid #104a7b;
+    /* border-left: 1px solid #104a7b; Moved border to tray container */
     box-shadow: inset 1px 1px 0 rgba(0,0,0,0.2);
 }
 
@@ -906,7 +950,7 @@ textarea.code-editor {
     outline: none;
     background-color: white;
     width: 100%;
-    height: 100%;
+    /* height: 100%; Removed to allow Flexbox to handle height */
     box-sizing: border-box;
     overflow: auto;
 }
@@ -1218,11 +1262,17 @@ textarea.code-editor {
     padding: 2px 5px;
     border-bottom: 1px solid #D4D0C8;
     font-size: 11px;
+    background: linear-gradient(to bottom, #F9F9F4 0%, #E3E3DB 100%);
 }
 
 .wmp-menu-bar span {
     margin-right: 10px;
     cursor: default;
+}
+
+.wmp-menu-bar span:hover {
+    color: #0b76ba;
+    text-decoration: underline;
 }
 
 .wmp-visualizer {
@@ -1233,6 +1283,8 @@ textarea.code-editor {
     justify-content: center;
     position: relative;
     overflow: hidden;
+    border: 2px solid #5A7EDC;
+    margin: 2px;
 }
 
 .wmp-vis-screen {
@@ -1241,90 +1293,159 @@ textarea.code-editor {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: radial-gradient(circle at center, #222 0%, #000 100%);
 }
 
 .wmp-vis-screen img {
     max-width: 100%;
     max-height: 100%;
+    opacity: 0.8;
 }
 
 .song-title-overlay {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
-    color: #0f0;
+    bottom: 15px;
+    left: 15px;
+    color: #66FF66; /* Retro Terminal Green */
     font-family: 'Courier New', monospace;
     font-size: 12px;
-    text-shadow: 1px 1px 0 #000;
+    text-shadow: 1px 1px 2px #000;
+    background: rgba(0,0,0,0.5);
+    padding: 2px 5px;
+    border-radius: 2px;
 }
 
 .wmp-controls {
-    height: 80px;
-    background: linear-gradient(to bottom, #E3EFFF 0%, #8EB2E4 100%);
+    height: 85px;
+    background: linear-gradient(to bottom, #dbe6f4 0%, #9eb4d3 50%, #7c98c4 100%);
     border-top: 1px solid #fff;
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    padding: 8px;
+    box-shadow: inset 0 2px 5px rgba(255,255,255,0.5);
 }
 
 .wmp-seeker {
     width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    padding: 0 5px;
 }
 
 .wmp-seeker input[type=range] {
     width: 100%;
-    height: 5px;
+    height: 6px;
     -webkit-appearance: none;
-    background: #000;
-    border: 1px solid #888;
+    appearance: none;
+    background: #333;
+    border: 1px solid #666;
+    border-radius: 3px;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 .wmp-seeker input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 10px;
-    height: 15px;
-    background: #C6D3F7;
-    border: 1px solid #fff;
-    cursor: pointer;
-}
-
-.wmp-buttons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.wmp-buttons button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(to bottom, #fff 0%, #ddd 100%);
+    border: 1px solid #555;
     border-radius: 50%;
-    transition: background 0.2s;
-    font-size: 24px;
-    color: #444;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
+    cursor: pointer;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    margin-top: 0px; /* Center thumb */
 }
 
-.wmp-buttons button:hover {
-    background: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+.wmp-control-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.wmp-main-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 0;
+    justify-content: center;
+    flex-grow: 1; /* Center alignment */
+}
+
+.wmp-btn {
+    border: 1px solid #7F9DB9;
+    background: linear-gradient(to bottom, #ffffff 0%, #dce5f8 50%, #b2c6e6 51%, #eaf1f9 100%); /* Glossy XP */
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #444;
+    transition: all 0.1s;
+    outline: none;
+    padding: 0;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.wmp-btn:hover {
+    background: linear-gradient(to bottom, #fff 0%, #eaf1f9 100%);
+    box-shadow: 0 0 8px rgba(255,255,255,0.6), 1px 1px 3px rgba(0,0,0,0.3);
+    border-color: #316AC5;
+    transform: translateY(-1px);
+}
+
+.wmp-btn:active {
+    background: #A0B3D6;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.3);
+    transform: translateY(1px);
+}
+
+.wmp-btn.small {
+    width: 28px;
+    height: 28px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.wmp-btn.big {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
     color: #000;
 }
 
-.wmp-volume-slider {
-    margin-left: 20px;
+.wmp-volume-box {
     display: flex;
     align-items: center;
-    font-size: 20px;
+    gap: 5px;
+    background-color: rgba(255,255,255,0.3);
+    padding: 3px 6px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.4);
+}
+
+.wmp-vol-icon {
+    font-size: 14px;
     cursor: default;
+    opacity: 0.7;
+}
+
+.wmp-vol-range {
+    width: 60px;
+    height: 4px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: #555;
+    border-radius: 2px;
+    outline: none;
+}
+
+.wmp-vol-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #FFF;
+    border: 1px solid #555;
+    cursor: pointer;
 }
 
 
@@ -1398,5 +1519,1360 @@ textarea.code-editor {
     opacity: 0;
     transition: opacity 0.5s ease-out;
     pointer-events: none;
+}
+
+/* --- Context Menu --- */
+.context-menu {
+    display: none;
+    position: absolute;
+    z-index: 10000;
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #aca899;
+    box-shadow: 4px 4px 2px rgba(0,0,0,0.5);
+    padding: 2px;
+    font-family: "Tahoma", sans-serif;
+    font-size: 11px;
+    cursor: default;
+}
+
+.context-menu-item {
+    display: flex;
+    align-items: center;
+    padding: 3px 20px 3px 25px; /* Left padding space for icons/checks */
+    color: #000;
+    position: relative;
+    white-space: nowrap;
+}
+
+.context-menu-item:hover {
+    background-color: #316ac5;
+    color: white;
+}
+
+/* Disabled Context Menu Item */
+.context-menu-item.disabled {
+    color: #aca899; /* Classic XP Disabled Gray */
+    pointer-events: none; /* Prevents clicking */
+    cursor: default;
+}
+
+.context-menu-item.disabled:hover {
+    background-color: transparent; /* No blue highlight */
+    border: 1px solid transparent; /* No border */
+    color: #aca899;
+}
+
+/* Optional: If icons exist, fade them too */
+.context-menu-item.disabled img {
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+
+.context-menu-separator {
+    height: 1px;
+    background-color: #aca899;
+    margin: 3px 2px;
+}
+
+/* Icons or checked status would go in ::before/img, but keeping simple for now */
+.context-menu-item .shortcut-key {
+    margin-left: auto;
+    padding-left: 20px;
+}
+
+/* Sidebar gutter for icons (authentic look) */
+.context-menu::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 24px;
+    background-color: #ECE9D8;
+    z-index: -1;
+    border-right: 1px solid #aca899;
+}
+
+/* Paint Window */
+.paint-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    background-color: #808080;
+    position: relative;
+}
+
+.paint-toolbar {
+    width: 50px;
+    background-color: #ECE9D8;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #808080;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 2px;
+    gap: 2px;
+}
+
+.paint-tool {
+    width: 22px;
+    height: 22px;
+    border: 1px solid transparent; /* Highlight on hover */
+    background-color: #ECE9D8;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.paint-tool:hover {
+    border-color: #fff #808080 #808080 #fff;
+}
+
+.paint-tool.active {
+    background-color: #fff;
+    border: 1px solid #808080;
+    box-shadow: inset 1px 1px 0 #000;
+}
+
+.paint-canvas-container {
+    flex: 1;
+    overflow: auto;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paint-canvas {
+    background-color: white;
+    cursor: crosshair;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.paint-colors {
+    height: 48px;
+    background-color: #ECE9D8;
+    border-top: 1px solid #fff;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2px;
+    gap: 1px;
+    align-content: center;
+}
+
+.paint-color {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #808080;
+    cursor: pointer;
+    box-shadow: inset 1px 1px 0 #fff;
+}
+
+/* IE Window */
+.ie-address-bar {
+    display: flex;
+    align-items: center;
+    padding: 2px 5px;
+    background-color: #ECE9D8;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-size: 11px;
+    gap: 5px;
+}
+
+.ie-address-bar input {
+    flex: 1;
+    border: 1px solid #7F9DB9;
+    padding: 2px;
+    font-family: inherit;
+}
+
+.ie-content {
+    flex: 1;
+    background-color: white;
+    min-height: 0;
+    border: 1px solid #716F64; /* Inset look */
+    margin: 2px;
+}
+
+.ie-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+/* Context Menu */
+.context-menu {
+    display: none;
+    position: absolute;
+    z-index: 10000;
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #aca899;
+    box-shadow: 4px 4px 2px rgba(0,0,0,0.5);
+    padding: 2px;
+    font-family: 'Tahoma', sans-serif;
+    font-size: 11px;
+    cursor: default;
+}
+
+.context-menu-item {
+    display: flex;
+    align-items: center;
+    padding: 3px 20px 3px 25px; /* Left padding space for icons/checks */
+    color: #000;
+    position: relative;
+    white-space: nowrap;
+}
+
+.context-menu-item:hover {
+    background-color: #316ac5;
+    color: white;
+}
+
+/* Disabled Context Menu Item */
+.context-menu-item.disabled {
+    color: #aca899; /* Classic XP Disabled Gray */
+    pointer-events: none; /* Prevents clicking */
+    cursor: default;
+}
+
+.context-menu-item.disabled:hover {
+    background-color: transparent; /* No blue highlight */
+    border: 1px solid transparent; /* No border */
+    color: #aca899;
+}
+
+/* Optional: If icons exist, fade them too */
+.context-menu-item.disabled img {
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+
+.context-menu-separator {
+    height: 1px;
+    background-color: #aca899;
+    margin: 3px 2px;
+}
+
+/* Icons or checked status would go in ::before/img, but keeping simple for now */
+.context-menu-item .shortcut-key {
+    margin-left: auto;
+    padding-left: 20px;
+}
+
+/* Sidebar gutter for icons (authentic look) */
+.context-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 24px;
+    background-color: #ECE9D8;
+    z-index: -1;
+    border-right: 1px solid #aca899;
+}
+
+/* Paint Window */
+.paint-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    background-color: #808080;
+    position: relative;
+}
+
+.paint-toolbar {
+    width: 50px;
+    background-color: #ECE9D8;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #808080;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 2px;
+    gap: 2px;
+}
+
+.paint-tool {
+    width: 22px;
+    height: 22px;
+    border: 1px solid transparent; /* Highlight on hover */
+    background-color: #ECE9D8;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.paint-tool:hover {
+    border-color: #fff #808080 #808080 #fff;
+}
+
+.paint-tool.active {
+    background-color: #fff;
+    border: 1px solid #808080;
+    box-shadow: inset 1px 1px 0 #000;
+}
+
+.paint-canvas-container {
+    flex: 1;
+    overflow: auto;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paint-canvas {
+    background-color: white;
+    cursor: crosshair;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.paint-colors {
+    height: 48px;
+    background-color: #ECE9D8;
+    border-top: 1px solid #fff;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2px;
+    gap: 1px;
+    align-content: center;
+}
+
+.paint-color {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #808080;
+    cursor: pointer;
+    box-shadow: inset 1px 1px 0 #fff;
+}
+
+/* IE Window */
+.ie-address-bar {
+    display: flex;
+    align-items: center;
+    padding: 2px 5px;
+    background-color: #ECE9D8;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-size: 11px;
+    gap: 5px;
+}
+
+.ie-address-bar input {
+    flex: 1;
+    border: 1px solid #7F9DB9;
+    padding: 2px;
+    font-family: inherit;
+}
+
+.ie-content {
+    flex: 1;
+    background-color: white;
+    min-height: 0;
+    border: 1px solid #716F64; /* Inset look */
+    margin: 2px;
+}
+
+.ie-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+/* Context Menu Submenu Style */
+.context-menu-sub {
+    z-index: 10001; /* Above parent menu */
+    position: fixed; /* Fixed helps avoid parent overflow issues sometimes, but absolute works if parent relative? No, menus are body children */
+}
+
+
+/* Outlook Express Style Email Window */
+.email-header {
+    background: #f0f0f0;
+    padding: 10px;
+    border-bottom: 1px solid #808080;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.email-header-row {
+    display: flex;
+    align-items: center;
+}
+.email-header-label {
+    width: 60px;
+    font-size: 11px;
+    color: #444;
+}
+.email-header-input {
+    flex-grow: 1;
+    border: 1px solid #7f9db9;
+    padding: 2px;
+    font-family: 'Tahoma', sans-serif;
+    font-size: 11px;
+}
+.email-toolbar {
+    background: #ece9d8;
+    border-bottom: 1px solid #aca899;
+    padding: 2px;
+    display: flex;
+    gap: 5px;
+}
+.email-toolbar-btn {
+    border: 1px solid transparent;
+    background: transparent;
+    padding: 2px 5px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 10px;
+}
+.email-toolbar-btn:hover {
+    border: 1px solid #316ac5;
+    background: #c1d2ee;
+}
+.email-toolbar-btn img {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 2px;
+}
+.email-content textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    resize: none;
+    padding: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    box-sizing: border-box; 
+    outline: none;
+}
+
+
+
+
+/* --- All Programs Menu --- */
+#all-programs-menu {
+    position: absolute;
+    left: 4px;
+    bottom: 65px; /* sit above the All Programs button and footer */
+    width: 185px; /* Match left column width approx */
+    background-color: white;
+    border: 1px solid #95BDE7;
+    border-left: 1px solid #95BDE7;
+    z-index: 3100;
+    display: none; /* Toggled via JS */
+    flex-direction: column;
+    padding: 2px;
+    box-shadow: 2px -2px 5px rgba(0,0,0,0.1); /* Shadow pointing up/right */
+    max-height: 350px; /* Prevent going over header */
+    overflow-y: visible; /* Allow submenus to be visible */
+}
+
+/* Ensure submenus can be seen */
+#all-programs-menu.active {
+    display: flex;
+}
+
+.program-item {
+    display: flex;
+    align-items: center;
+    padding: 3px 6px;
+    cursor: default;
+    gap: 8px;
+    font-size: 11px;
+    color: black;
+    position: relative;
+    height: 26px;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.program-item:hover {
+    background-color: #316AC5;
+    color: white;
+}
+
+.program-item img {
+    width: 20px;
+    height: 20px;
+}
+
+.program-item.header-item {
+    font-weight: bold;
+    background-color: #eee;
+    margin-bottom: 2px;
+}
+
+/* Submenus */
+.program-submenu {
+    position: absolute;
+    left: 100%; /* Pop out to the right */
+    top: -5px; /* Align slightly above the item */
+    width: 200px; /* Wider submenu */
+    background-color: white;
+    border: 1px solid #777;
+    box-shadow: 4px 4px 5px rgba(0,0,0,0.3);
+    display: none;
+    flex-direction: column;
+    padding: 2px;
+    z-index: 3200;
+}
+
+.program-item.has-submenu:hover {
+    background-color: #316AC5;
+    color: white;
+}
+
+.program-item.has-submenu:hover > .program-submenu {
+    display: flex;
+}
+
+/* Arrow for submenu */
+.program-item.has-submenu::after {
+    content: '▶'; /* Unicode arrow */
+    margin-left: auto;
+    font-size: 8px;
+    color: black;
+}
+
+.program-item.has-submenu:hover::after {
+    color: white;
+}
+
+/* Active State for All Programs Button */
+.all-programs.active {
+    background-color: #cfcfcf;
+    border: 1px solid #666;
+    color: black;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+
+/* --- XP Calculator Style --- */
+/* Calculator Window Container */
+.calc-container {
+    background-color: #ECE9D8; /* XP Beige */
+    padding: 10px 4px; /* Slight padding around the edges */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: Tahoma, sans-serif;
+    user-select: none;
+}
+
+/* The Display Screen */
+.calc-display {
+    margin-bottom: 8px;
+    padding: 0 2px;
+}
+.calc-display input {
+    width: 100%;
+    height: 24px;
+    text-align: right;
+    font-size: 13px;
+    padding: 2px 4px;
+    border: 1px solid #7F9DB9;
+    background: white;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+    box-sizing: border-box; /* Crucial for input width */
+}
+
+/* The Main Button Grid */
+.calc-grid {
+    display: grid;
+    /* 1 col for Memory, 5 cols for main pad = 6 columns total */
+    grid-template-columns: 32px repeat(5, 32px); 
+    grid-template-rows: 24px repeat(4, 28px); /* 1 top row, 4 number rows */
+    gap: 4px; /* Authentic gap size */
+    justify-content: center;
+    margin: 0; padding: 0;
+}
+
+/* Button Styling */
+.calc-btn {
+    width: 100%; /* Fill grid cell */
+    height: 100%; /* Fill grid cell */
+    font-size: 11px;
+    font-family: Tahoma, sans-serif;
+    border: 1px solid #003c74;
+    border-radius: 2px;
+    background: linear-gradient(to bottom, #fff 0%, #ece9d8 100%);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-sizing: border-box;
+    min-width: 0; /* Prevent flex overflow */
+    min-height: 0; /* Prevent flex overflow */
+}
+
+.calc-btn:active {
+    background: #d8d4c2;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Special Spanning for Top Row */
+.btn-backspace { grid-column: 2 / span 2; width: auto; } /* Spans 2 cols */
+.btn-ce { grid-column: 4 / span 2; width: auto; }       /* Spans 2 cols */
+.btn-c { grid-column: 6 / span 1; width: auto; }        /* Spans 1 col */
+
+/* Text Colors */
+.text-red { color: #FF0000 !important; }
+.text-blue { color: #0000FF !important; }
+
+/* The Empty Box above Memory */
+.calc-empty-box {
+    border: 1px solid #888;
+    border-right-color: white;
+    border-bottom-color: white;
+    background: #ECE9D8;
+    box-sizing: border-box;
+    width: auto; height: auto;
+}
+
+
+/* Specific Colors */
+.text-red { color: #FF0000 !important; }
+.text-blue { color: #0000FF !important; }
+
+
+/* Windows Picture and Fax Viewer */
+/* Container */
+.img-viewer-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #EEF3FA; /* XP Photo Viewer Light Blue/White */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Image Canvas */
+.img-viewer-canvas {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding-bottom: 50px; /* Space for toolbar */
+}
+
+.img-viewer-canvas img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Bottom Toolbar */
+.img-viewer-toolbar {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ECE9D8;
+    border: 1px solid #ACA899;
+    border-radius: 3px;
+    padding: 3px;
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.img-viewer-toolbar button {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-viewer-toolbar button:hover {
+    background-color: #FFF;
+    border: 1px solid #316AC5;
+}
+
+.img-viewer-toolbar button:active {
+    background-color: #E6E6E6;
+    border: 1px solid #316AC5;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.img-viewer-toolbar img {
+    width: 20px;
+    height: 20px;
+}
+
+.img-viewer-toolbar .separator {
+    width: 1px;
+    height: 20px;
+    background-color: #ACA899;
+    margin: 0 4px;
+}
+
+/* --- Display Properties --- */
+.props-tabs { display: flex; padding-left: 2px; height: 18px; margin-bottom: 2px; }
+.props-tabs div { padding: 3px 8px; border: 1px solid #ACA899; border-bottom: none; background: #ECE9D8; border-radius: 3px 3px 0 0; margin-right: 2px; cursor: default; font-size: 11px; position: relative; top: 1px; }
+.props-tabs div.active-tab { background: #fff; border-bottom: 1px solid white; z-index: 10; font-weight: bold; }
+.props-body { border: 1px solid #ACA899; background: #fff; padding: 10px; font-family: 'Tahoma', sans-serif; font-size: 11px; }
+.props-footer { display: flex; justify-content: flex-end; gap: 6px; padding: 10px 0 0 0; }
+.xp-btn { min-width: 75px; height: 23px; font-family: 'Tahoma', sans-serif; font-size: 11px; }
+.xp-btn.wide { width: 100%; }
+
+/* --- Monitor Preview --- */
+.monitor-preview-container { display: flex; flex-direction: column; align-items: center; margin: 15px 0; }
+.monitor-frame { width: 150px; height: 110px; background-color: #E0DFE3; border: 1px solid #999; border-radius: 5px 5px 0 0; padding: 10px 10px 15px 10px; box-shadow: inset 1px 1px 0 white; }
+.monitor-screen { width: 100%; height: 100%; background-color: #000; border: 1px solid #666; background-size: cover; background-position: center; }
+.monitor-stand { width: 60px; height: 15px; background-color: #E0DFE3; border: 1px solid #999; border-top: none; border-radius: 0 0 5px 5px; }
+
+/* --- Selection Group --- */
+.bg-selection-group fieldset { padding: 10px; border: 1px solid #D0D0BF; border-radius: 3px; }
+.bg-list-container { flex: 1; height: 120px; border: 1px solid #7F9DB9; background: white; overflow-y: auto; }
+.bg-list-container ul { list-style: none; padding: 0; margin: 0; }
+.bg-list-container li { padding: 2px 4px; cursor: default; font-size: 11px; display: flex; align-items: center; }
+.bg-list-container li:hover { background-color: #ebf4fe; }
+.bg-list-container li.selected { background-color: #316AC5; color: white; }
+.bg-controls { width: 100px; display: flex; flex-direction: column; gap: 5px; }
+.bg-controls select { font-size: 11px; padding: 1px; width: 100%; }
+
+/* --- Display Properties Layout Fix --- */
+.display-props-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Fill the window content area */
+    overflow: hidden; /* Prevent scrolling on the main container */
+}
+
+.display-props-layout .props-tabs {
+    flex: 0 0 auto; /* Don't grow or shrink */
+}
+
+.display-props-layout .props-body {
+    flex: 1 1 auto;
+    overflow-y: auto; /* Scroll ONLY the body if needed */
+    padding: 15px;
+    background: white;
+    border: 1px solid #ACA899;
+    margin: 0 5px; /* Margin to align with tabs */
+}
+
+.display-props-layout .props-footer {
+    flex: 0 0 auto;
+    padding: 12px 5px 10px 5px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    background-color: #ECE9D8; /* Ensure it blends with window bg */
+}
+
+
+
+/* --- Minesweeper --- */
+.minesweeper-window {
+    background: #c0c0c0;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    user-select: none;
+}
+.ms-header {
+    border-left: 2px solid #808080;
+    border-top: 2px solid #808080;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    padding: 4px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #c0c0c0;
+    margin-bottom: 6px;
+}
+.ms-counter {
+    background: #000;
+    color: #f00;
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2px 4px;
+    border-left: 1px solid #808080;
+    border-top: 1px solid #808080;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    width: 40px;
+    text-align: right;
+}
+.ms-face {
+    width: 26px;
+    height: 26px;
+    border-left: 2px solid #fff;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+    background-color: #c0c0c0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+}
+.ms-face:active {
+    border-left: 1px solid #808080;
+    border-top: 1px solid #808080;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+.ms-grid {
+    border-left: 3px solid #808080;
+    border-top: 3px solid #808080;
+    border-right: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    display: grid;
+    background: #c0c0c0;
+}
+.ms-cell {
+    width: 16px;
+    height: 16px;
+    border-left: 2px solid #fff;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+    background: #c0c0c0;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+}
+.ms-cell.revealed {
+    border: 1px solid #808080;
+    border-style: solid;
+    border-width: 1px 0 0 1px;
+    border-color: #808080 transparent transparent #808080;
+    width: 19px; /* adjust for border loss */
+    height: 19px;
+    background: #c0c0c0;
+    /* Actually plain flat border? XP uses just a thin gray line for revealed usually */
+    border: none;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+}
+/* XP Minesweeper usually keeps the grid tight. Let's simplify: simple flat gray with 1px dark border for revealed */
+.ms-cell.revealed {
+    border: none;
+    border-left: 1px solid #777;
+    border-top: 1px solid #777;
+    width: 20px;
+    height: 20px;
+}
+/* Revert to standard bevel logic */
+.ms-cell {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #fff #808080 #808080 #fff;
+    line-height: 16px;
+}
+.ms-cell.revealed {
+    border-width: 1px;
+    border-color: #808080;
+    border-style: solid; /* simple flat */
+    border: 1px solid #808080; /* minimal border */
+    border: none; /* revealed cells are usually flat */
+    border-left: 1px solid #808080;
+    border-top: 1px solid #808080;
+    width: 19px;
+    height: 19px;
+}
+.ms-cell.mine {
+    background: #c0c0c0;
+    color: black;
+}
+.ms-cell.flag {
+    color: red;
+}
+/* Colors */
+.ms-1 { color: blue; }
+.ms-2 { color: green; }
+.ms-3 { color: red; }
+.ms-4 { color: navy; }
+.ms-5 { color: darkred; }
+.ms-6 { color: teal; }
+.ms-7 { color: black; }
+.ms-8 { color: gray; }
+
+/* --- Solitaire --- */
+.solitaire-window {
+    background-color: #008000; /* Classic felt green */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+}
+.solitaire-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    height: 120px;
+}
+.solitaire-deck-area {
+    display: flex;
+    gap: 20px;
+}
+.solitaire-foundations {
+    display: flex;
+    gap: 10px;
+}
+.sol-placeholder {
+    width: 70px;
+    height: 95px;
+    border: 2px solid #00ff0055;
+    border-radius: 4px;
+    position: relative;
+}
+.sol-card {
+    width: 70px;
+    height: 95px;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #000;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: grab;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+.sol-card.red { color: red; }
+.sol-card.black { color: black; }
+.sol-card-back {
+    background: repeating-linear-gradient(
+        45deg,
+        #606dbc,
+        #606dbc 10px,
+        #465298 10px,
+        #465298 20px
+    );
+    border: 2px solid white;
+}
+.solitaire-tableau {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 20px;
+    flex-grow: 1;
+}
+.sol-column {
+    width: 70px;
+    position: relative;
+    min-height: 200px;
+}
+
+
+/* --- XP Login Balloon Tooltip --- */
+.xp-login-balloon {
+    position: absolute;
+    background-color: #FFFFE1;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+    z-index: 10001; /* Above login screen */
+    font-family: 'Tahoma', sans-serif;
+    font-size: 11px;
+    color: #444;
+    min-width: 200px;
+    max-width: 250px;
+}
+
+.xp-login-balloon h4 {
+    margin: 0 0 5px 0;
+    padding: 0;
+    font-size: 11px;
+    font-weight: bold;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.xp-login-balloon h4 img {
+    width: 14px;
+    height: 14px;
+}
+
+.xp-login-balloon .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 14px;
+    height: 14px;
+    line-height: 12px;
+    text-align: center;
+    cursor: pointer;
+    color: #999;
+    font-family: sans-serif;
+    font-size: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+}
+
+.xp-login-balloon .close-btn:hover {
+    background: #FFAAAA;
+    border-color: #A00;
+    color: white;
+}
+
+.xp-login-balloon::after {
+    content: '';
+    position: absolute;
+    bottom: 100%; /* Point UP */
+    right: 20px; /* Position on right side */
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent #000 transparent; /* Black outline */
+}
+.xp-login-balloon::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    right: 21px;
+    border-width: 7px;
+    border-style: solid;
+    border-color: transparent transparent #FFFFE1 transparent; /* Inner yellow */
+    z-index: 1;
+}
+
+
+/* --- XP Taskbar Notification Balloon --- */
+.xp-notification {
+    position: fixed;
+    bottom: 40px; /* Just above taskbar */
+    right: 10px;
+    background-color: #FFFFE1;
+    border: 1px solid #000;
+    border-radius: 9px;
+    padding: 10px 25px 10px 10px; /* Right padding for close btn */
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+    z-index: 10000;
+    font-family: 'Tahoma', sans-serif;
+    font-size: 11px;
+    color: #000;
+    width: 250px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: auto; /* Ensure clickable */
+}
+
+.xp-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.xp-notification-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.xp-notification-title img {
+    width: 16px;
+    height: 16px;
+}
+
+.xp-notification-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 14px;
+    height: 14px;
+    /* Use data URI for a reliable Close Button (small X) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath stroke='%23444' stroke-width='2' d='M2 2 L8 8 M8 2 L2 8'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 8px;
+    cursor: pointer;
+    opacity: 0.6;
+    border: 1px solid transparent;
+    border-radius: 2px;
+}
+
+.xp-notification-close:hover {
+    opacity: 1;
+    background-color: #fce1a9; /* Slight hover highlight */
+    border-color: #dcb35a;
+}
+
+/* Arrow pointing down-right towards tray */
+.xp-notification::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 20px; 
+    border-width: 0 10px 15px 0; /* Simulating angled stem */
+    border-color: transparent #000 transparent transparent; /* It's tricky with borders, keeping simple */
+    /* Let's try standard triangle but pointing down */
+    border-left: 0px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #000;
+}
+
+.xp-notification::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 21px;
+    border-left: 0px solid transparent;
+    border-right: 13px solid transparent;
+    border-top: 13px solid #FFFFE1;
+    z-index: 1;
+    margin-top: -1px; /* Overlap border */
+}
+
+/* --- XP System Tray Area --- */
+#system-tray {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding: 0 5px 0 8px; /* Extra padding left for handle */
+    background: #0b76ba; /* Fallback */
+    background: linear-gradient(to bottom, #1290e8 0%, #0b76ba 5%, #0b75b9 100%);
+    border-left: 1px solid #104a7b; /* Dark text shadow-ish */
+    box-shadow: inset 1px 0px 0px rgba(0,0,0,0.1);
+    position: relative;
+    margin-right: 0;
+}
+
+/* Vertical Checkered Handle (The "Divider") */
+#system-tray::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 4px;
+    bottom: 4px;
+    width: 3px;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
+    background-size: 3px 3px;
+    opacity: 0.5;
+}
+
+/* Tray Arrow Button */
+.tray-expand-button {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff 0%, #176dc8 80%);
+    border: 1px solid #fff;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.tray-expand-button:hover {
+     background: radial-gradient(circle at 30% 30%, #fff 0%, #3089ea 80%);
+}
+
+.tray-expand-button::after {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 5px;
+    border: 2px solid white;
+    border-left: 0;
+    border-bottom: 0;
+    transform: rotate(45deg); /* Default > */
+    transition: transform 0.3s;
+}
+
+/* Tray Icons */
+.tray-icon-img {
+    width: 16px;
+    height: 16px;
+    margin: 0 2px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.tray-icon-img:hover {
+    filter: brightness(1.1);
+}
+
+/* --- XP Notification Area (Tray + Clock Wrapper) --- */
+#notification-area {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    background: #0b76ba; 
+    background: linear-gradient(to bottom, #1290e8 0%, #0b76ba 5%, #0b75b9 100%);
+    border-left: 1px solid #104a7b; /* The single divider for the whole area */
+    box-shadow: inset 1px 1px 0px rgba(0,0,0,0.1); 
+    padding-left: 5px; /* Space for handle */
+    position: relative;
+    margin-left: 2px;
+}
+
+/* Handle on the left of the whole area */
+#notification-area::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 4px;
+    bottom: 4px;
+    width: 3px;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
+    background-size: 3px 3px;
+    opacity: 0.5;
+}
+
+/* Reset individual backgrounds */
+#system-tray {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: static !important; /* Allow flow */
+}
+
+#system-tray::before {
+    display: none !important; /* Remove individual handle */
+}
+
+.clock {
+    background: none !important;
+    border: none !important; /* Remove left border */
+    box-shadow: none !important;
+    padding: 0 10px 0 5px;
+}
+
+/* Tray Icons Container */
+#tray-icons {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    transition: width 0.3s ease;
+    /* Default expanded width or auto */
+}
+
+/* Hidden state class */
+.tray-icons-hidden .tray-collapsible {
+    display: none; 
+}
+/* Animation Logic: We can't animate to width auto easily with CSS only without max-width tricks, 
+   but for accurate XP feel, toggle display is fine or width 0. */
+
+/* Rotations for chevron */
+.tray-arrow-collapsed::after {
+    transform: rotate(-135deg); /* Point Left (<) */
+    margin-right: -2px;
+}
+
+.tray-arrow-expanded::after {
+    transform: rotate(45deg); /* Point Right (>) */
+    margin-right: 2px;
+}
+
+/* --- Volume Popup --- */
+#volume-popup {
+    position: absolute;
+    bottom: 30px; /* Above taskbar */
+    right: 0px;
+    width: 60px;
+    height: 140px;
+    background-color: #ECE9D8;
+    border: 1px solid #716F64;
+    border-top: 1px solid #F1EFE2;
+    border-left: 1px solid #F1EFE2;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    z-index: 5000; /* Above windows, below taskbar/startmenu? Actually usually on top */
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 11px;
+    font-family: 'Tahoma', sans-serif;
+}
+
+#volume-popup .volume-header {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #000;
+}
+
+#volume-popup .volume-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#volume-popup .slider-track {
+    position: relative;
+    width: 4px;
+    background-color: #C0C0C0;
+    border: 1px solid #808080;
+    border-bottom: 1px solid #F1EFE2;
+    border-right: 1px solid #F1EFE2;
+    height: 80px;
+    margin-bottom: 8px;
+    border-radius: 2px;
+}
+
+#volume-popup .slider-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: transparent; /* XP volume doesn't have a fill color usually, just the thumb */
+}
+
+#volume-popup .slider-thumb {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 10px;
+    background-image: url('https://win98icons.alexmeub.com/icons/png/scroll_arrow_up-0.png'); /* Placeholder for thumb */
+    background-color: #ECE9D8;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid #fff;
+    border-bottom-color: #716F64;
+    border-right-color: #716F64;
+    box-shadow: 1px 1px 0 #000;
+    cursor: pointer;
+}
+
+#volume-popup .mute-box {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 

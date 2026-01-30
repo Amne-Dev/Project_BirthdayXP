@@ -222,7 +222,7 @@ $(document).ready(function() {
         "C:/Windows/System32": [
         { name: "drivers", type: "folder" },
         { name: "cmd.exe", type: "file", icon: "terminal" },
-        { name: "calc.exe", type: "file", icon: "app" },
+        { name: "calc.exe", type: "file", icon: "app"},
         { name: "notepad.exe", type: "file", icon: "app" },
         { name: "kernel32.dll", type: "file", icon: "system" },
         { name: "hal.dll", type: "file", icon: "system" },
@@ -243,16 +243,16 @@ $(document).ready(function() {
             { name: "Desktop", type: "folder" },
             { name: "Downloads", type: "folder" },
             { name: "Music", type: "folder" },
-            { name: "ReadMe_First.txt", type: "file", icon: "txt", content: "Welcome Friend!\n\nI've hidden the password for the gift somewhere in my files.\n\nHint: I was working on an old project recently... check my Documents." }
+            { name: "ReadMe_First.txt", type: "file", icon: "txt", content: "Welcome Asmae!\n\nI've hidden the password for the gift somewhere in my files.\n\nHint: I was working on an old project recently... check my Documents." }
         ],
         "C:/Users/Amine/Desktop": [
-            { name: "Welcome.txt", type: "file", icon: "txt", content: "MISSION BRIEFING:\n\nHappy Birthday! Your gift is currently locked in the 'Gift.zip' archive.\n\nTo access it, you must complete the following tasks:\n\n1. [COMPLETED] Log in to the system.\n2. The system drivers are corrupted. Open 'fix_me.py' and fix the code to unlock the File Explorer.\n3. Search the file system for the 'riddle.txt' file. It contains the equation for the password.\n4. Solve the riddle and unlock 'Gift.zip'.\n\nGood luck!" },
+            { name: "Welcome.txt", type: "file", icon: "txt", content: "MISSION BRIEFING:\n\nHappy Birthday! Your gift is currently locked in the 'Gift.zip' archive.\n\nTo access it, you must complete the following tasks:\n\n1. [COMPLETED] Log in to the system.\n2. File Explorer Is Locked (The Drivers are corrupt). Open 'fix_me.py' and fix the code to unlock it.\n3. Search the file system for the 'directions' file. It will help you find the password riddle.\n4. Solve the riddle and unlock 'Gift.zip'.\n\nGood luck!" },
             { name: "fix_me.py", type: "file", icon: "py", content: "def init_drivers():\n    status = \"broken\"\n    # TODO: Fix the syntax below to unlock system\n    if status = \"broken\"\n        return True" },
             { name: "Gift.zip", type: "file", icon: "zip" }
         ],
         "C:/Users/Amine/Downloads": [
              { name: "installer_v2.exe", type: "file", icon: "default" },
-             { name: "receipt.txt", type: "file", icon: "txt", content: "Order #12345\nItem: Birthday Cake\nStatus: Delivered" }
+             { name: "receipt.txt", type: "file", icon: "txt", content: "Order #1\nItem: Perfume\nStatus: Pending Delivery\nPrice: 70 MAD" }
         ],
         "C:/Users/Amine/Music": [
              { name: "song.mp3", type: "audio", icon: "media" }
@@ -261,19 +261,27 @@ $(document).ready(function() {
              { name: "vacation.jpg", type: "file", icon: "default" },
              { name: "hint.txt", type: "file", icon: "txt", content: "Nice view, but the password isn't here. Try looking in 'Old_Projects'." },
              { name: "IMPORTANT.png", type: "file", icon: "image", action: "openImageViewer", asset: "assets/HBD.png" },
+             { name: "2025-2024", type: "folder"}
+        ],
+        "C:/Users/Amine/Pictures/2025-2024":[
+            { name: "lblad.jpg", type: "file", icon: "image", action: "openImageViewer", asset: "assets/IMG_0163.jpg" },
+            { name: "MoulayIsmail.png", type: "file", icon: "image", action: "openImageViewer", asset: "assets/MlyIsmail.jpg" },
+            { name: "cat.png", type: "file", icon: "image", action: "openImageViewer", asset: "assets/cat.jpg" },
+            
         ],
         "C:/Users/Amine/Documents": [
             { name: "Old_Projects", type: "folder" },
             { name: "Sunset.jpg", type: "file", icon: "image", action: "openImageViewer", asset: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
-            { name: "Resume.doc", type: "file", icon: "doc", content: "RESUME\n\nName: Birthday User\nExperience: Being Awesome (1995-Present)\nSkills: Solving Riddles, Opening Zips" },
-            { name: "Notes.doc", type: "file", icon: "doc", content: "To Do:\n1. Buy groceries\n2. Fix the computer\n3. Celebrate birthday" }
+            { name: "Resume.doc", type: "file", icon: "doc", content: "RESUME\n\nName: Asmae\nExperience: Being Awesome (2008-Present)\nQualities: Kind, Smart, Thoughtful, Fun to be arround, Light Hearted, Honest, Gentle, Hardworking" },
+            { name: "Notes.doc", type: "file", icon: "doc", content: "To Do:\n1. Enjoy your day" },
+            { name: "arctan.png", type: "file", icon: "image", action: "openImageViewer", asset: "assets/arctan.jpg" }
         ],
         "C:/Users/Amine/Documents/Old_Projects": [
             { name: "Top_Secret", type: "folder" },
             { name: "Website_v1", type: "folder" }
         ],
         "C:/Users/Amine/Documents/Old_Projects/Top_Secret": [
-            { name: "riddle.txt", type: "file", icon: "txt", content: `ERROR 410: GONE\n\nThe file you are looking for has been deleted.\n\nCheck the Recycle Bin for a backup.\n\n(Note: Please read the README.txt in the trash to identify the correct file.)` }
+            { name: "directions.txt", type: "file", icon: "txt", content: `ERROR 410: GONE\n\nThe file you are looking for has been deleted.\n\nCheck the Recycle Bin for a backup.\n\n(Note: Please read the README.txt in the trash to identify the correct file.)` }
         ],
         "C:/Program Files": [
              { name: "Paint", type: "file", icon: "default" },
@@ -284,17 +292,17 @@ $(document).ready(function() {
              { name: "WordPad", type: "file", icon: "doc" }
         ],
         "Recycle Bin": [
-            { name: "README.txt", type: "file", icon: "txt", content: "RECOVERY INSTRUCTIONS:\n\nOne of the deleted files in this directory contains the PASSWORD CLUE.\n\nPARAMETERS:\n- File Type: Text Document (.txt)\n- Name Length: Exactly 3 letters (excluding extension)\n- Status: Partially Corrupted" },
+            { name: "README.txt", type: "file", icon: "txt", content: "RECOVERY INSTRUCTIONS:\n\nOne of the deleted files in this directory contains the PASSWORD CLUE.\n\nPARAMETERS:\n- File Type: Text Document (.txt)\n- Name Length: 5 letters (excluding .txt) " },
             { name: "system.log", type: "file", icon: "txt", content: "System dump: 0x004512..." },
             { name: "backup.dat", type: "file", icon: "default" },
-            { name: "old_doc.doc", type: "file", icon: "doc", content: "Meeting notes..." },
-            { name: "graph_v1.jpg", type: "file", icon: "default" },
-            { name: "dummy.txt", type: "file", icon: "txt", content: "Just placeholder text. Nothing useful." }, // 5 letters
+            { name: "old_doc.doc", type: "file", icon: "doc", content: "<b>Hakari's speech thing...</b>\nHakari never acquired reverse cursed technique, but... the infinite cursed energy overflowing in Hakari's body caused his body to reflexively perform reversed cursed technique in order to avoid damage. in other words, in the 4 minutes and 11 seconds following a jackpot, Hakari is effectively immortal." },
+            { name: "graph_v1.jpg", type: "file", icon: "image", action: "openImageViewer", asset: "https://www.bibmath.net/dico/e/images/equilatere.gif" },
+            { name: "dummy.txt", type: "file", icon: "txt", content: "Don't be bothered by the contents of this file, Its just here to make the game look more realistic" }, // 5 letters
             { name: "error.log", type: "file", icon: "txt", content: "Error 404" },
-            { name: "login.txt", type: "file", icon: "txt", content: "User: admin\nPass: [REDACTED]" }, // 5 letters
-            { name: "Age.txt", type: "file", icon: "txt", content: "RIDDLE EXTRACTED:\n\nI go up, but I never come down.\nI mark the time, but I make no sound.\nNow you know what I am, so to limit the mix:\nTake a full dozen, and simply add six." }, // Updated Riddle
-            { name: "Party_Pics.zip", type: "file", icon: "zip" },
-            { name: "memories.jpg", type: "file", icon: "image", action: "openImageViewer", asset: "https://images.unsplash.com/photo-1530103862676-de3c9da59af7?auto=format&fit=crop&w=600&q=80" },
+            { name: "login.txt", type: "file", icon: "txt", content: "User: admin\nPass: Smile" }, // 5 letters
+            { name: "maybe.txt", type: "file", icon: "txt", content: "RIDDLE EXTRACTED:\n\nI go up, but I never come down.\nI mark the time, but I make no sound.\nThink of something related to this occasion\n\n\nHint: Its a number" },//Now you know what I am, so to limit the mix:\nTake a full dozen, and simply add six." }, // Updated Riddle
+            { name: "Gift.zip -Shortcut", type: "file", icon: "zip" },
+            { name: "ʕ•ᴥ•ʔ.jpg", type: "file", icon: "image", action: "openImageViewer", asset: "https://media.tenor.com/OeuYae1cQTkAAAAM/heart-cat.gif" },
             { name: "funny_cat.mp4", type: "file", icon: "media" }
         ]
     };
@@ -466,7 +474,7 @@ function showLoginBalloon(title, message) {
             console.log("Login Failed");
             loginAttempts++;
             if (loginAttempts === 1) {
-                showLoginBalloon("Login Failed", "User Access Denied.<br>Hint: S____ (It is the prettiest thing you can wear.)");
+                showLoginBalloon("Login Failed", "User Access Denied.<br>Hint: S _ _ _ _ (It is the prettiest thing you can wear.)");
             } else {
                 showLoginBalloon("Login Failed", "User Access Denied.<br>Hint: Try " + LOGIN_ANSWER);
             }
@@ -527,16 +535,16 @@ function showLoginBalloon(title, message) {
         
         // Step 2
         if (isDriversFixed) {
-            content += "2. [COMPLETED] Fix System Drivers (fix_me.py).\n\n";
+            content += "2. [COMPLETED] Unlock File Explorer (fix_me.py).\n\n";
         } else {
-            content += "2. System drivers are corrupted.\n    ACTION: Open 'fix_me.py', fix the syntax error, and run it to unlock the File Explorer.\n\n";
+            content += "2. File Explorer Is Locked & The Drivers are corrupt.\n    ACTION: Open 'fix_me.py', fix the syntax error, and run it to unlock the File Explorer.\n\n";
         }
 
         // Step 3
         if (isRiddleFound) {
-            content += "3. [COMPLETED] Locate 'riddle.txt'.\n\n";
+            content += "3. [COMPLETED] Locate 'directions.txt'.\n\n";
         } else {
-            content += "3. Locate the password clue.\n    ACTION: Search 'My Computer' for 'riddle.txt'. It contains the equation for the password.\n\n";
+            content += "3. Locate the password clue.\n    ACTION: Search 'My Computer' for 'directions'. It contains the answer to finding password .\n\n";
         }
 
         // Step 4
@@ -583,7 +591,7 @@ function showLoginBalloon(title, message) {
                 openInstructions();
                 break;
             case "sidequests":
-                const sideQuestsText = "SIDE QUESTS & HIDDEN COOL STUFF:\n\n1. Did you know the clock works?\n2. Try double-clicking the 'folder' icon in the taskbar (start menu).\n3. There is a music file in My Documents/Music... maybe it plays?\n4. Paint.exe is missing... can you find it? (Just kidding, it's not implemented yet!)\n\nHave fun exploring!";
+                const sideQuestsText = "SIDE QUESTS & HIDDEN COOL STUFF:\n\n1. I hid a song in a folder. Did you find it? \n2. You can play minesweeper & even solitaire!!!.\n3. The web browser(Internet Explorer) is fully functional\n4. You can actually Change the Wallpaper by right clicking on the desktop. Oh and Paint works\nThere's many more hidden things I didn't mention\n\nHave fun exploring!";
                 createNotepadWindow("Side_Quests.txt - Notepad", sideQuestsText);
                 break;
             case "fixme":
@@ -714,22 +722,6 @@ function showLoginBalloon(title, message) {
 
     /* --- Step 3: The Scavenger Hunt (File Explorer) --- */
     
-    // Back Button Logic
-    $("#explorer-back").click(function() {
-        if (currentPath === "root") return;
-        
-        if (currentPath === "C:") {
-            navigateExplorer("root");
-        } else {
-            const lastSlashIndex = currentPath.lastIndexOf("/");
-            if (lastSlashIndex !== -1) {
-                navigateExplorer(currentPath.substring(0, lastSlashIndex));
-            } else {
-                navigateExplorer("root");
-            }
-        }
-    });
-
     // Address Bar Logic
     $("#explorer-address").keypress(function(e) {
         if(e.which == 13) {
@@ -825,19 +817,19 @@ function showLoginBalloon(title, message) {
         // Render Items
         content.forEach(item => {
             // Hidden file logic
-            if (item.name === "Age.txt" && !hasOpenedRiddle) {
+            if (item.name === "maybe.txt" && !hasOpenedRiddle) {
                 return;
             }
 
-            // Notification: Found Age.txt
-            if (item.name === "Age.txt" && hasOpenedRiddle && !hasNotifiedAge) {
-                showNotification("Secret Found", "You discovered Age.txt!", "info"); 
+            // Notification: Found maybe.txt
+            if (item.name === "maybe.txt" && hasOpenedRiddle && !hasNotifiedAge) {
+                showNotification("Secret Found", "You're close to figuring the password", "info"); 
                 hasNotifiedAge = true;
             }
 
             let iconHtml;
             if (item.action === "openImageViewer" && item.asset) {
-                iconHtml = `<img src="${item.asset}" alt="${item.name}" style="object-fit: cover;">`;
+                iconHtml = `<img src="${item.asset}" alt="${item.name}" class="image-icon-preview" style="object-fit: cover;">`;
             } else {
                 const iconType = getFileIcon(item);
                 iconHtml = getIconHtml(iconType, item.name);
@@ -860,7 +852,7 @@ function showLoginBalloon(title, message) {
                 } else if (item.action === "openImageViewer") {
                     openImageViewer(item.name, item.asset);
                 } else if (item.type === "file") {
-                    if (item.name === "riddle.txt") {
+                    if (item.name === "directions.txt") {
                         hasOpenedRiddle = true;
                     }
 
@@ -1022,8 +1014,8 @@ function showLoginBalloon(title, message) {
                     <span class="toggle">^</span>
                 </div>
                 <div class="task-content">
-                    <div class="task-item" onclick="navigateExplorer('C:/Users/Friend/Desktop')"><img src="https://win98icons.alexmeub.com/icons/png/desktop-2.png"> Desktop</div>
-                    <div class="task-item" onclick="navigateExplorer('C:/Users/Friend/Documents')"><img src="https://win98icons.alexmeub.com/icons/png/directory_open-4.png"> My Documents</div>
+                    <div class="task-item" onclick="navigateExplorer('C:/Users/Amine/Desktop')"><img src="https://win98icons.alexmeub.com/icons/png/desktop-2.png"> Desktop</div>
+                    <div class="task-item" onclick="navigateExplorer('C:/Users/Amine/Documents')"><img src="https://win98icons.alexmeub.com/icons/png/directory_open-4.png"> My Documents</div>
                     <div class="task-item" onclick="navigateExplorer('root')"><img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png"> My Computer</div>
                     <div class="task-item"><img src="https://win98icons.alexmeub.com/icons/png/network_cool-2.png"> My Network Places</div>
                 </div>
@@ -2110,7 +2102,31 @@ function showLoginBalloon(title, message) {
             registerWindow(id, "My Computer", "computer");
         } else if (id === "window-media") {
             registerWindow(id, "Windows Media Player", "computer"); // Using computer icon as placeholder
-            // Start video
+            // Start reward media: set iframe src from data-src (deferred load)
+            setTimeout(() => {
+                try {
+                    const $iframe = $("#window-media iframe");
+                    if ($iframe.length) {
+                        const dataSrc = $iframe.attr('data-src') || $iframe.attr('src') || '';
+                        let src = '';
+
+                        if (dataSrc.match(/youtube\.com\/watch\?v=|youtu\.be\//)) {
+                            // Extract video id and convert to embed URL
+                            const m = dataSrc.match(/(?:v=|youtu\.be\/)([\w-\-]+)/);
+                            if (m && m[1]) {
+                                src = `https://www.youtube.com/embed/${m[1]}?autoplay=1&rel=0`;
+                            }
+                        } else {
+                            // Use dataSrc directly for direct video links
+                            src = dataSrc;
+                        }
+
+                        if (src) $iframe.attr('src', src);
+                    }
+                } catch (e) {
+                    console.error('Failed to initialize reward media iframe:', e);
+                }
+            }, 50);
         }
     };
 
@@ -2327,7 +2343,7 @@ function showLoginBalloon(title, message) {
             let file = files.find(f => f.name === fileName);
             
             if (!file) {
-                file = fileSystem["C:/Users/Friend/Desktop"].find(f => f.name === fileName);
+                file = fileSystem["C:/Users/Amine/Desktop"].find(f => f.name === fileName);
             }
             
             if (file && (file.type === "file" || fileName.endsWith(".txt") || fileName.endsWith(".py") || fileName.endsWith(".doc"))) {
@@ -2667,16 +2683,16 @@ function showLoginBalloon(title, message) {
                 </div>
 
                 <div class="img-viewer-toolbar">
-                    <button title="Previous" disabled><img src="https://win98icons.alexmeub.com/icons/png/arrow_left-0.png"></button>
-                    <button title="Next" disabled><img src="https://win98icons.alexmeub.com/icons/png/arrow_right-0.png"></button>
+                    <button title="Previous" disabled style="font-size: 16px;">◀</button>
+                    <button title="Next" disabled style="font-size: 16px;">▶</button>
                     <div class="separator"></div>
-                    <button id="${winId}-zoom-in" title="Zoom In"><img src="https://win98icons.alexmeub.com/icons/png/search_file-2.png"></button>
-                    <button id="${winId}-zoom-out" title="Zoom Out"><img src="https://win98icons.alexmeub.com/icons/png/search_file-2.png" style="transform: scale(0.8);"></button>
+                    <button id="${winId}-zoom-in" title="Zoom In" style="font-size: 18px;">+</button>
+                    <button id="${winId}-zoom-out" title="Zoom Out" style="font-size: 18px;">-</button>
                     <div class="separator"></div>
-                    <button id="${winId}-rot-cw" title="Rotate Clockwise"><img src="https://win98icons.alexmeub.com/icons/png/redo-0.png"></button>
-                    <button id="${winId}-rot-ccw" title="Rotate Counter-Clockwise"><img src="https://win98icons.alexmeub.com/icons/png/undo-0.png"></button>
+                    <button id="${winId}-rot-cw" title="Rotate Clockwise" style="font-size: 18px;">↻</button>
+                    <button id="${winId}-rot-ccw" title="Rotate Counter-Clockwise" style="font-size: 18px;">↺</button>
                     <div class="separator"></div>
-                    <button title="Delete"><img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_full-4.png" style="width:16px"></button>
+                    <button title="Delete" style="font-size: 16px;">🗑</button>
                 </div>
             </div>
         `;
